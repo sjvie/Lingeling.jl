@@ -1,5 +1,5 @@
 # Lingeling.jl
-Julia bindings to the library of the SAT-Solver **Lingeling** (TODO cite) created by Armin Biere.
+Julia bindings for the SAT-Solver **Lingeling** (TODO cite) created by Armin Biere.
 
 -----
 As Lingeling's API is similar to that of the SAT-Solver PicoSAT, some parts of Lingeling.jl are based off the Julia bindings in PicoSAT.jl (TODO link).
