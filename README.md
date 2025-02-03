@@ -1,6 +1,6 @@
 # Lingeling.jl
 ![example workflow](https://github.com/sjvie/Lingeling.jl/actions/workflows/testing.yml/badge.svg)\
-Julia bindings for the SAT-Solver **Lingeling** ([Website](https://fmv.jku.at/lingeling/), [Repo](https://github.com/arminbiere/lingeling)) created by Armin Biere.
+Julia interface for the SAT-Solver **Lingeling** ([Website](https://fmv.jku.at/lingeling/), [Repo](https://github.com/arminbiere/lingeling)) created by Armin Biere.
 
 -----
 As Lingeling's API is similar to that of the SAT-Solver PicoSAT, some parts of Lingeling.jl are based on the Julia bindings in [PicoSAT.jl](https://github.com/sisl/PicoSAT.jl).
