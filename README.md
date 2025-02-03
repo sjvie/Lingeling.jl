@@ -52,7 +52,7 @@ TODO
 TODO
 ```
 
-# Issues
+# Any Problems?
 When you encounter any issues with this package, please consider creating an issue or fixing the problem by submitting a pull request.
 
 # LICENSE
