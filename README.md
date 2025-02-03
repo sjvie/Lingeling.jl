@@ -1,4 +1,5 @@
 # Lingeling.jl
+![example workflow](https://github.com/sjvie/Lingeling.jl/actions/workflows/testing.yml/badge.svg)\
 Julia bindings for the SAT-Solver **Lingeling** (TODO cite) created by Armin Biere.
 
 -----
