@@ -6,7 +6,7 @@ Julia interface for the SAT solver **Lingeling** ([Website](https://fmv.jku.at/l
 As Lingeling's API is similar to that of the SAT-Solver PicoSAT, some parts of Lingeling.jl are based on the Julia bindings in [PicoSAT.jl](https://github.com/sisl/PicoSAT.jl).
 
 # ✨ Features
-Lingeling.jl adds bindings to some but not all functions of the Lingeling SAT-Solver:
+Lingeling.jl includes some but not all functions of the Lingeling SAT-Solver:
 - Constructing and destructing the solver
 - Getting and setting solver options
 - Adding, freezing, and melting literals
