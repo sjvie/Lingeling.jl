@@ -5,3 +5,7 @@ version = "1.0.0"
 
 [deps]
 Lingeling_jll = "54ea7443-b7cf-5485-b0d0-86c7d7a308e1"
+
+[compat]
+julia = "1.6"
+Lingeling_jll = "1"
