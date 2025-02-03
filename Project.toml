@@ -1,7 +1,7 @@
 name = "Lingeling"
 uuid = "24b7b615-05f5-4cb5-9c13-cd423f90764a"
-authors = ["viegener "]
-version = "0.1.0"
+authors = ["Soeren Viegener"]
+version = "1.0.0"
 
 [deps]
 Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
