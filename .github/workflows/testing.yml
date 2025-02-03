@@ -17,8 +17,6 @@ jobs:
       matrix:
         version:
           - '1.6' # min version
-          - '1.7' # min version
-          - '1.8' # min version
           - '1.10.2' # development version
           - '1' #  latest
           - 'nightly'
