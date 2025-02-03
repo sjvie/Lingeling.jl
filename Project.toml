@@ -4,5 +4,4 @@ authors = ["Soeren Viegener"]
 version = "1.0.0"
 
 [deps]
-Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
 Lingeling_jll = "54ea7443-b7cf-5485-b0d0-86c7d7a308e1"
