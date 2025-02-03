@@ -1,5 +1,6 @@
 # Lingeling.jl
 ![example workflow](https://github.com/sjvie/Lingeling.jl/actions/workflows/testing.yml/badge.svg)
+[![codecov](https://codecov.io/github/sjvie/Lingeling.jl/graph/badge.svg?token=174Z2MMY4D)](https://codecov.io/github/sjvie/Lingeling.jl)
 
 Julia interface for the SAT solver **Lingeling** ([Website](https://fmv.jku.at/lingeling/), [Repo](https://github.com/arminbiere/lingeling)) created by Armin Biere.
 
