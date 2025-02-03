@@ -107,6 +107,11 @@ end
     lgl_freeze(solver, 2)
     lgl_freeze(solver, 4)
     lgl_freeze(solver, 5)
+    @test lgl_frozen(solver, 1) == 0
+    @test lgl_frozen(solver, 2) == 1
+    @test lgl_frozen(solver, 3) == 0
+    @test lgl_frozen(solver, 4) == 1
+    @test lgl_frozen(solver, 5) == 1
     result = lgl_sat(solver)
     @test result == Lingeling.SATISFIABLE
 
@@ -152,6 +157,12 @@ end
     @test lgl_usable(solver, 3) == 0
     @test lgl_usable(solver, 4) == 1
     @test lgl_usable(solver, 5) == 0
+
+    @test lgl_frozen(solver, 1) == 0
+    @test lgl_frozen(solver, 2) == 1
+    @test lgl_frozen(solver, 3) == 0
+    @test lgl_frozen(solver, 4) == 1
+    @test lgl_frozen(solver, 5) == 0
 
     lgl_release(solver)
 
