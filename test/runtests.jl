@@ -189,7 +189,7 @@ end
     lgl_freeze(solver, 5)
     result = lgl_sat(solver)
     @test result == Lingeling.SATISFIABLE
-    
+
     lgl_meltall(solver)
     result = lgl_sat(solver)
     @test result == Lingeling.SATISFIABLE
@@ -260,5 +260,110 @@ end
 
     lgl_release(solver)
 
-    @test lgl_version() != 0
+    @test length(lgl_version()) > 0
 end
+
+@testset "lglib.h example" begin
+    # Initialize solver
+    solver = lgl_init()
+
+    # Add first binary clause: -14 ∨ 2
+    lgl_add(solver, -14)
+    lgl_add(solver, 2)
+    lgl_add(solver, 0)  # terminate clause
+
+    # Add second binary clause: 14 ∨ -1
+    lgl_add(solver, 14)
+    lgl_add(solver, -1)
+    lgl_add(solver, 0)  # terminate clause
+
+    # Freeze literals we'll use later
+    lgl_freeze(solver, 1)
+    lgl_freeze(solver, 14)
+
+    @test lgl_frozen(solver, 1) == 1
+    @test lgl_frozen(solver, 14) == 1
+
+    res = lgl_sat(solver)
+    @test res == Lingeling.SATISFIABLE  # SATISFIABLE is defined as 10 in the module
+
+    # Check variable assignments
+    lgl_deref(solver, 1)   # fine
+    lgl_deref(solver, 2)   # fine
+    lgl_deref(solver, 3)   # fine
+    lgl_deref(solver, 14)  # fine
+
+    @test lgl_usable(solver, 2) == 0
+    # Note: lgl_add(solver, 2) would be ILLEGAL here
+
+    @test lgl_usable(solver, 15) == 1  # 15 not used yet!
+
+    # Add new binary clause: -14 ∨ 1
+    lgl_add(solver, -14)
+    lgl_add(solver, 1)
+    lgl_add(solver, 0)
+
+    # Add unit clause: 15
+    lgl_add(solver, 15)
+    lgl_add(solver, 0)
+
+    lgl_melt(solver, 14)  # 14 discarded
+
+    res = lgl_sat(solver)
+    @test res == Lingeling.SATISFIABLE
+
+    @test lgl_frozen(solver, 1) == 1
+
+    # Check variable assignments again
+    lgl_deref(solver, 1)
+    lgl_deref(solver, 2)
+    lgl_deref(solver, 3)
+    lgl_deref(solver, 14)
+    lgl_deref(solver, 15)
+
+    @test lgl_usable(solver, 2) == 0
+    @test lgl_usable(solver, 14) == 0
+
+    # Add unit clause with still frozen literal 1
+    lgl_add(solver, 1)
+    lgl_melt(solver, 1)
+    lgl_add(solver, 0)
+
+    res = lgl_sat(solver)
+    @test res == Lingeling.SATISFIABLE
+
+    @test lgl_usable(solver, 1) == 0
+
+    # Disable BCE
+    lgl_setopt(solver, "plain", 1)
+
+    # Add binary clause: 8 ∨ -9
+    lgl_add(solver, 8)
+    lgl_add(solver, -9)
+    lgl_add(solver, 0)
+
+    res = lgl_sat(solver)
+    @test res == Lingeling.SATISFIABLE
+
+    @test lgl_usable(solver, 8) == 0
+    @test lgl_usable(solver, -9) == 0
+    @test lgl_reusable(solver, 8) == 1
+    @test lgl_reusable(solver, -9) == 1
+
+    # Reuse and add unit clause: -8
+    lgl_reuse(solver, 8)
+    lgl_add(solver, -8)
+    lgl_add(solver, 0)
+
+    # Enable BCE
+    lgl_setopt(solver, "plain", 0)
+
+    res = lgl_sat(solver)
+    @test res != 0
+
+    # Clean up
+    lgl_release(solver)
+
+    res  # Return the final result
+end
+
