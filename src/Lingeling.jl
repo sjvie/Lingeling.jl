@@ -119,18 +119,18 @@ Check whether an option exists.
 - `opt::String`: The option name.
 
 # Returns
-- `val::Cint`: Whether the option exists. 1 if it exists, 0 otherwise.
+- `val::Cint`: Whether the option exists. `1` if it exists, `0` otherwise.
 """
 lgl_hasopt(p::LglPtr, opt::String) = @ccall liblgl.lglhasopt(p::LglPtr, opt::Cstring)::Cint
 
 """
     lgl_add(solver::LglPtr, lit::Integer)
 
-Add a literal of the next clause.  A zero literal terminates the clause.
+Add a literal of the next clause.  A `0` literal terminates the clause.
 
 # Arguments
 - `solver::LglPtr`: A pointer to the Lingeling SAT-Solver.
-- `lit::Cint`: The literal to add. A zero literal terminates the clause. Negative literals are negated.
+- `lit::Cint`: The literal to add. A `0` literal terminates the clause. Negative literals are negated (i.e., `-2` means "NOT 2")
 
 # Throws
 - `InexactError`: If the literal can not be converted to a `Cint`.
@@ -142,14 +142,14 @@ lgl_add(p::LglPtr, lit::Integer) = @ccall liblgl.lgladd(p::LglPtr, lit::Cint)::C
     lgl_sat(solver::LglPtr)::Cint
 
 Call the main SAT routine. The return values are as above, e.g.
-'Lingeling.UNSATISFIABLE', 'Lingeling.SATISFIABLE', or 'Lingeling.UNKNOWN'.
+`Lingeling.UNSATISFIABLE`, `Lingeling.SATISFIABLE`, or `Lingeling.UNKNOWN`.
 
 # Arguments
 - `solver::LglPtr`: A pointer to the Lingeling SAT-Solver.
 
 # Returns
-- `val::Cint`: The result of the SAT routine. (e.g. 'Lingeling.UNSATISFIABLE', 
-'Lingeling.SATISFIABLE', or 'Lingeling.UNKNOWN')
+- `val::Cint`: The result of the SAT routine. (e.g. `Lingeling.UNSATISFIABLE`, 
+`Lingeling.SATISFIABLE`, or `Lingeling.UNKNOWN`)
 """
 lgl_sat(p::LglPtr) = @ccall liblgl.lglsat(p::LglPtr)::Cint
 
@@ -157,17 +157,17 @@ lgl_sat(p::LglPtr) = @ccall liblgl.lglsat(p::LglPtr)::Cint
 """
     lgl_deref(solver::LglPtr, lit::Integer)::Cint
 
-After 'lgl_sat' was called and returned 'Lingeling.SATISFIABLE', then
+After 'lgl_sat' was called and returned `Lingeling.SATISFIABLE`, then
 the satisfying assignment can be obtained by 'dereferencing' literals.
-The value of the literal is return as '1' for 'true',  '-1' for 'false'
-and '0' for an unknown value.
+The value of the literal is return as `1` for true,  `-1` for false
+and `0` for an unknown value.
 
 # Arguments
 - `solver::LglPtr`: A pointer to the Lingeling SAT-Solver.
 - `lit::Integer`: The literal to dereference.
 
 # Returns
-- `val::Cint`: The value of the literal. 1 for true, -1 for false, 0 for unknown.
+- `val::Cint`: The value of the literal. `1` for true, `-1` for false, `0` for unknown.
 
 # Throws
 - `InexactError`: If the literal can not be converted to a `Cint`.
@@ -176,18 +176,18 @@ lgl_deref(p::LglPtr, lit::Integer) = @ccall liblgl.lglderef(p::LglPtr, lit::Cint
 
 """
 Incremental interface provides reference counting for indices, i.e.
-unfrozen indices become invalid after next 'lgl_sat'.
+unfrozen indices become invalid after next `lgl_sat`.
 This is actually a reference counter for variable indices still in use
-after the next 'lgl_sat' call.  It is actually variable based
+after the next `lgl_sat` call.  It is actually variable based
 and only applies to literals in new clauses or used as assumptions,
-e.g. in calls to 'lgl_add'.
+e.g. in calls to `lgl_add`.
 """
 
 """
     lgl_freeze(solver::LglPtr, lit::Integer)
 
-Freeze a literal meaning that it will not be eliminated during lgl_sat
-so it can be used in future calls to lgl_add.
+Freeze a literal meaning that it will not be eliminated during `lgl_sat`
+so it can be used in future calls to `lgl_add`.
 
 # Arguments
 - `solver::LglPtr`: A pointer to the Lingeling SAT-Solver.
@@ -208,7 +208,7 @@ Check whether a literal is frozen.
 - `lit::Integer`: The literal to check.
 
 # Returns
-- `val::Cint`: Whether the literal is frozen. 1 if it is frozen, 0 otherwise.
+- `val::Cint`: Whether the literal is frozen. `1` if it is frozen, `0` otherwise.
 
 # Throws
 - `InexactError`: If the literal can not be converted to a `Cint`.
@@ -218,7 +218,7 @@ lgl_frozen(p::LglPtr, lit::Integer) = @ccall liblgl.lglfrozen(p::LglPtr, lit::Ci
 """
     lgl_melt(solver::LglPtr, lit::Integer)
 
-Melt a literal meaning that it may be eliminated during lgl_sat.
+Melt a literal meaning that it may be eliminated during `lgl_sat`.
 
 # Arguments
 - `solver::LglPtr`: A pointer to the Lingeling SAT-Solver.
@@ -240,7 +240,7 @@ Melt all literals.
 lgl_meltall(p::LglPtr) = @ccall liblgl.lglmeltall(p::LglPtr)::Cvoid
 
 """
-If a literal was not frozen at the last call to 'lgl_sat'
+If a literal was not frozen at the last call to `lgl_sat`
 it becomes 'unusable' after the next call even though it might not
 have been used as blocking literal etc.
 """
@@ -249,15 +249,15 @@ have been used as blocking literal etc.
     lgl_usable(solver::LglPtr, lit::Integer)::Cint
 
 Check whether a literal is usable.
-A literal becomes unusable if it was not frozen during the last call to 'lgl_sat'.
-Being unusable means that the literal is not allowed to be used in the next call to 'lgl_add'.
+A literal becomes unusable if it was not frozen during the last call to `lgl_sat`.
+Being unusable means that the literal is not allowed to be used in the next call to `lgl_add`.
 
 # Arguments
 - `solver::LglPtr`: A pointer to the Lingeling SAT-Solver.
 - `lit::Integer`: The literal to check.
 
 # Returns
-- `val::Cint`: Whether the literal is usable. 1 if it is usable, 0 otherwise.
+- `val::Cint`: Whether the literal is usable. `1` if it is usable, `0` otherwise.
 
 # Throws
 - `InexactError`: If the literal can not be converted to a `Cint`.
@@ -268,15 +268,15 @@ lgl_usable(p::LglPtr, lit::Integer) = @ccall liblgl.lglusable(p::LglPtr, lit::Ci
     lgl_reusable(solver::LglPtr, lit::Integer)::Cint
 
 Check whether a literal is reusable.
-A literal may not have been frozen during the last call to 'lgl_sat' but
-could still be reusable (and thus be made usable again using 'lgl_reuse').
+A literal may not have been frozen during the last call to `lgl_sat` but
+could still be reusable (and thus be made usable again using `lgl_reuse`).
 
 # Arguments
 - `solver::LglPtr`: A pointer to the Lingeling SAT-Solver.
 - `lit::Integer`: The literal to check.
 
 # Returns
-- `val::Cint`: Whether the literal is reusable. 1 if it is reusable, 0 otherwise.
+- `val::Cint`: Whether the literal is reusable. `1` if it is reusable, `0` otherwise.
 
 # Throws
 - `InexactError`: If the literal can not be converted to a `Cint`.
@@ -287,7 +287,7 @@ lgl_reusable(p::LglPtr, lit::Integer) = @ccall liblgl.lglreusable(p::LglPtr, lit
     lgl_reuse(solver::LglPtr, lit::Integer)
 
 Make a literal usable again.
-If a literal was not frozen during the last call to 'lgl_sat' but is reusable,
+If a literal was not frozen during the last call to `lgl_sat` but is reusable,
 it can be made usable again using this function.
 
 # Arguments
