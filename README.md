@@ -17,8 +17,9 @@ Lingeling.jl includes some but not all functions of the Lingeling SAT-Solver:
 - Checking whether literals are usable/reusable
 - Solving and dereferencing
 
-The API is documented in [Lingeling.jl](https://github.com/sjvie/Lingeling.jl/blob/9f7aa366814f36fa8319c48ad1946d73a9e3545a/src/Lingeling.jl).
-Some additional information may be found in the Lingeling [header file](https://github.com/arminbiere/lingeling/blob/89a167d0d2efe98d983c87b5b84175b40ea55842/lglib.h), as well as in the [PicoSAT](https://fmv.jku.at/picosat/) header file.
+Have a look at the [documentation](https://sjvie.github.io/Lingeling.jl).
+> [!TIP]
+> Some additional information may be found in the Lingeling [header file](https://github.com/arminbiere/lingeling/blob/89a167d0d2efe98d983c87b5b84175b40ea55842/lglib.h), as well as in the [PicoSAT](https://fmv.jku.at/picosat/) header file.
 
 <br>
 
