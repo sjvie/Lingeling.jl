@@ -11,3 +11,7 @@ makedocs(
         "API Reference" => "api.md",
     ]
 )
+
+deploydocs(
+    repo = "github.com/sjvie/Lingeling.jl.git",
+)
