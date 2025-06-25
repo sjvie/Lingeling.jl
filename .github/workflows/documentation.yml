@@ -6,12 +6,15 @@ on:
       - main
     tags: '*'
   pull_request:
+  workflow_dispatch:
+    inputs:
+      git_ref:
+        description: 'Git ref (tag, branch, or commit SHA) to build docs for (e.g., v1.0.0, main, refs/tags/v1.0.0)'
+        required: true
+        default: 'main'
 
 jobs:
   build:
-    # These permissions are needed to:
-    # - Deploy the documentation: https://documenter.juliadocs.org/stable/man/hosting/#Permissions
-    # - Delete old caches: https://github.com/julia-actions/cache#usage
     permissions:
       actions: write
       contents: write
@@ -20,18 +23,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # If manually triggered via workflow_dispatch, use the input ref.
+          # Otherwise, actions/checkout defaults to the ref that triggered the event (e.g., pushed branch/tag).
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.git_ref || github.ref }}
+
       - uses: julia-actions/setup-julia@v2
         with:
           version: '1.10.2'
+
       - uses: julia-actions/cache@v2
+
       - name: Install dependencies
         shell: julia --color=yes --project=docs {0}
         run: |
           using Pkg
           Pkg.develop(PackageSpec(path=pwd()))
           Pkg.instantiate()
+
       - name: Build and deploy
-        run: julia --color=yes --project=docs docs/make.jl
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # If authenticating with GitHub Actions token
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }} # If authenticating with SSH deploy key
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
+        run: julia --color=yes --project=docs docs/make.jl
