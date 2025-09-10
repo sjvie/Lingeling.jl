@@ -19,7 +19,7 @@ Lingeling.jl includes some but not all functions of the Lingeling SAT-Solver:
 
 Have a look at the [documentation](https://sjvie.github.io/Lingeling.jl).
 > [!TIP]
-> Some additional information may be found in the Lingeling [header file](https://github.com/arminbiere/lingeling/blob/89a167d0d2efe98d983c87b5b84175b40ea55842/lglib.h), as well as in the [PicoSAT](https://fmv.jku.at/picosat/) header file.
+> Some additional information may also be found in the Lingeling [header file](https://github.com/arminbiere/lingeling/blob/89a167d0d2efe98d983c87b5b84175b40ea55842/lglib.h), as well as in the [PicoSAT](https://fmv.jku.at/picosat/) header file.
 
 <br>
 
@@ -34,7 +34,7 @@ using Pkg
 Pkg.add("Lingeling")
 ```
 
-Lingeling.jl does **not** currently support Windows and macOS.
+Lingeling.jl does currently **not** support Windows.
 
 <br>
 
@@ -45,7 +45,7 @@ https://github.com/sjvie/Lingeling.jl/blob/9f7aa366814f36fa8319c48ad1946d73a9e35
 <br>
 
 ## ❗ Any Problems?
-When you encounter any issues with this package, please consider creating an issue or fixing the problem by submitting a pull request.
+If you encounter any issues with this package, please consider creating an issue or fixing the problem by submitting a pull request.
 
 <br>
 
